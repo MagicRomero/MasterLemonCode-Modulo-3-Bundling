@@ -6,7 +6,6 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build:types": "tsc --emitDeclarationOnly",
     "dev-server": "webpack serve",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
@@ -46,13 +45,20 @@
     "babel-loader": "^8.2.1",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
+    "image-minimizer-webpack-plugin": "^1.0.0",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
     "postcss": "^8.1.7",
     "postcss-import": "^13.0.0",
     "postcss-loader": "^4.0.4",
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^2.0.0",
     "typescript": "^4.0.5",
+    "url-loader": "^4.1.1",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
