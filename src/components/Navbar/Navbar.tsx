@@ -1,21 +1,46 @@
 import * as React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Navbar.module.css";
 
-const Navbar: React.FC<{ mode: string }> = ({ mode }): JSX.Element => {
+interface NavbarProps {
+  themeMode: string;
+  changeThemeMode: Function;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+  themeMode,
+  changeThemeMode,
+}): JSX.Element => {
   return (
     <nav className={styles.navbar}>
-      <i className={`fas fa-2x fa-sun ${mode === "light" && "active"}`} />
+      <FontAwesomeIcon
+        size="2x"
+        icon={["fas", "sun"]}
+        className={`${themeMode === "light" && "active"}`}
+      />
       <label className={styles.switch}>
-        <input type="checkbox" />
+        <input
+          name="theme"
+          type="checkbox"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const mode = themeMode === "light" ? "dark" : "light";
+            changeThemeMode(mode);
+          }}
+          value="themeMode"
+        />
         <span className={styles.slider} />
       </label>
-      <i className={`fas fa-2x fa-moon ${mode === "dark" && "active"}`} />
+      <FontAwesomeIcon
+        size="2x"
+        icon={["fas", "moon"]}
+        className={`${themeMode === "dark" && "active"}`}
+      />{" "}
     </nav>
   );
 };
 
 Navbar.defaultProps = {
-  mode: "light",
+  themeMode: "light",
 };
 
 export default Navbar;

@@ -10,21 +10,32 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
   mode: isDevelopment ? "development" : "production",
+  entry: path.resolve(__dirname, "src/index.tsx"),
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     chunkFilename: "[id].[chunkhash].js",
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    watchContentBase: true,
+    watchOptions: {
+      ignored: /node_modules/,
+    },
+    contentBase: path.resolve(__dirname, "dist"),
+    open: true,
     port: 8080,
     compress: true,
+    hot: true,
+    inline: true,
   },
   optimization: {
     splitChunks: { chunks: "all" },
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   devtool: isDevelopment ? "source-map" : false,
   module: {
@@ -49,7 +60,31 @@ module.exports = {
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: {
+          loader: "babel-loader",
+          options: {
+            babelrc: false,
+            cacheDirectory: true,
+            presets: [
+              "@babel/preset-env",
+              [
+                "@babel/preset-typescript",
+                {
+                  targets: {
+                    browsers: ["last 2 versions", "safari >= 7"],
+                    node: "6.10",
+                  },
+                },
+              ],
+              "@babel/preset-react",
+            ],
+            plugins: [
+              "@babel/proposal-class-properties",
+              "@babel/proposal-object-rest-spread",
+              "react-hot-loader/babel",
+            ],
+          },
+        },
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -100,6 +135,7 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: "index.css" }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src/public", "index.html"),
+      hash: true,
     }),
   ],
 };
