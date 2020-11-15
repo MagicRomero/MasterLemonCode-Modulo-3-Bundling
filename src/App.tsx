@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 const App: React.FC = (): JSX.Element => {
   return (
     <>
-      <Navbar />
+      <Navbar mode="light" />
     </>
   );
 };

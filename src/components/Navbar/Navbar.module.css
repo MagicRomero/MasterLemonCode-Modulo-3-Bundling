@@ -9,12 +9,17 @@
 .navbar svg {
   padding: 0 0.5em;
 }
+
+.navbar svg.fa-moon,
 .navbar svg.fa-sun {
-  color: #e4e40c;
+  color: gray;
 }
 
-.navbar svg.fa-moon {
-  color: gray;
+.navbar svg.fa-sun.active {
+  color: #e4e40c;
+}
+.navbar svg.fa-moon.active {
+  color: #fac9b8;
 }
 
 .switch {
@@ -66,13 +71,4 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
