@@ -16,13 +16,6 @@ module.exports = {
   optimization: {
     splitChunks: { chunks: "all" },
   },
-  watch: true,
-  watchOptions: {
-    ignored: [
-      path.resolve(__dirname, "dist"),
-      path.resolve(__dirname, "node_modules"),
-    ],
-  },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
@@ -58,7 +51,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
             loader: "file-loader",
