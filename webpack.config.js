@@ -1,8 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { config } = require("dotenv");
-
-config();
 
 module.exports = {
   devServer: {
@@ -33,14 +30,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
     ],
   },
   resolve: {
-    extensions: [".ts", ".js", ".tsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   output: {
     filename: "bundle.js",
@@ -48,7 +45,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html"),
+      template: path.resolve(__dirname, "src/public", "index.html"),
     }),
   ],
 };
