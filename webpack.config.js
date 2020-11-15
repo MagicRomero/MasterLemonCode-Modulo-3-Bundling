@@ -1,8 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { config } = require("dotenv");
+
+config();
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
+  mode: isDevelopment ? "development" : "production",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
@@ -19,15 +26,20 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
+  devtool: isDevelopment ? "source-map" : false,
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          "style-loader",
+          isDevelopment ? MiniCssExtractPlugin.loader : "style-loader",
           {
             loader: "css-loader",
             options: {
+              sourceMap: isDevelopment,
+              modules: {
+                localIdentName: isDevelopment ? "[local]" : "[sha1:hash:hex:4]",
+              },
               importLoaders: 1,
             },
           },
@@ -85,6 +97,7 @@ module.exports = {
         ],
       },
     }),
+    new MiniCssExtractPlugin({ filename: "index.css" }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src/public", "index.html"),
     }),
