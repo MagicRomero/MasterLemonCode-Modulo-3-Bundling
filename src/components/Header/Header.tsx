@@ -8,6 +8,7 @@ const Header: React.FC = (): JSX.Element => {
       <header className={styles.header}>
         <img src={logo} alt="lemoncode" />
         <h1>Master Lemoncode - Modulo 3 Bundling</h1>
+        <p>Donde los sueños del bundle se hacen realidad</p>
       </header>
     </>
   );
