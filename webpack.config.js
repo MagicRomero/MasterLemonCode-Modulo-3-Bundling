@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -132,6 +134,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src/public", "index.html"),
       hash: true,
+      favicon: path.resolve(__dirname, "src/assets/images/logo/lemoncode.png"),
     }),
+    new BundleAnalyzerPlugin(),
   ].filter(Boolean),
 };
