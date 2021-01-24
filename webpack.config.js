@@ -45,6 +45,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
+              url: false,
               sourceMap: isDevelopment,
               modules: {
                 localIdentName: isDevelopment ? "[local]" : "[sha1:hash:hex:4]",
@@ -136,6 +137,6 @@ module.exports = {
       hash: true,
       favicon: path.resolve(__dirname, "src/assets/images/logo/lemoncode.png"),
     }),
-    new BundleAnalyzerPlugin(),
+    isDevelopment && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
 };
