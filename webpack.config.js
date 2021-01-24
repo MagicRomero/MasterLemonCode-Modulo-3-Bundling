@@ -2,31 +2,18 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { config } = require("dotenv");
-
-config();
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
+  target: "web",
   mode: isDevelopment ? "development" : "production",
-  entry: path.resolve(__dirname, "src/index.tsx"),
+  entry: ["react-hot-loader/patch", path.resolve(__dirname, "src/index.tsx")],
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     chunkFilename: "[id].[chunkhash].js",
-  },
-  devServer: {
-    watchContentBase: true,
-    watchOptions: {
-      ignored: /node_modules/,
-    },
-    contentBase: path.resolve(__dirname, "dist"),
-    open: true,
-    port: 8080,
-    compress: true,
-    hot: true,
-    inline: true,
   },
   optimization: {
     splitChunks: { chunks: "all" },
@@ -36,6 +23,15 @@ module.exports = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
     },
+    plugins: [new TsconfigPathsPlugin()],
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, "./dist"),
+    port: 4001,
+    open: true,
+    hot: true,
+    compress: true,
+    inline: false,
   },
   devtool: isDevelopment ? "source-map" : false,
   module: {
@@ -82,7 +78,7 @@ module.exports = {
               "@babel/proposal-class-properties",
               "@babel/proposal-object-rest-spread",
               "react-hot-loader/babel",
-            ],
+            ].filter(Boolean),
           },
         },
       },
@@ -137,5 +133,5 @@ module.exports = {
       template: path.resolve(__dirname, "src/public", "index.html"),
       hash: true,
     }),
-  ],
+  ].filter(Boolean),
 };

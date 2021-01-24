@@ -1,8 +1,7 @@
-import * as React from "react";
+import React from "react";
 import { render } from "react-dom";
 import App from "./App";
-import "./lib/fontawesome";
-import "./styles/global.css";
+import "@styles/global.css";
 
 render(
   <React.StrictMode>

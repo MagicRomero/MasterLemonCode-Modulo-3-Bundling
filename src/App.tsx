@@ -1,16 +1,11 @@
-import { hot } from "react-hot-loader/root";
-import * as React from "react";
-import { useState } from "react";
-import Navbar from "./components/Navbar/Navbar";
+import React from "react";
 
 const App: React.FC = (): JSX.Element => {
-  const [themeMode, setMode] = useState<string>("light");
-
   return (
     <>
-      <Navbar themeMode={themeMode} changeThemeMode={setMode} />
+      <div>lemoncode hot 🧰 aaaa</div>
     </>
   );
 };
 
-export default hot(App);
+export default App;
